@@ -85,6 +85,23 @@ public:
         return output;
     }
 
+    std::vector<int> productExceptSelf_OPT(std::vector<int>& nums) {
+        // optimization
+
+        // go through all elements from left to right
+        std::vector<int> res(nums.size(), 1);
+        for (int i = 1; i < nums.size(); ++i) {
+            res[i] = res[i - 1] * nums[i - 1];
+        }
+        // go through all elements from right to left
+        int right = 1;
+        for (int i = nums.size() - 1; i >= 0; --i) {
+            res[i] *= right;
+            right  *= nums[i];
+        }
+        return res;
+    }
+
 
     std::vector<int> productExceptSelf_EasyWay(std::vector<int>& nums) {
         // will use division
